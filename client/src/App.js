@@ -7,13 +7,25 @@ import TopNavbar from './Components/TopNavbar'
 import Register from './Components/Register'
 import Product from './Components/Product'
 import Receipts from './Components/Receipts'
+import FileView from './Components/FileView'
 import CreateReceipt from './Components/CreateReceipt'
 import {Button} from 'react-bootstrap'
 
 
 function App() {
 
-
+const dataName=[
+  {user:
+    {name: 'nikko',
+    age: 27
+  }
+  },
+  {user:{
+    name:'hazelle',
+    age: 28
+  }
+  }
+]
 
   return (
     <Router>
@@ -24,11 +36,12 @@ function App() {
             <Route path="/" exact component={Home}/>
             <Route path="/about" component={About}/>
             <Route path="/home" component={Home}/>
+            <Route path="/fs" component={()=><FileView data={dataName} keyWord="name"/>}/>
             <Route path="/products" exact component={Products}/>
               <Route path="/products/register" component={Register}/>
               <Route path="/products/:id" component={Product}/>
             <Route path="/receipts" exact component={Receipts}/>
-            <Route path="/receipts/create"  component={CreateReceipt}/>
+            <Route path="/receipts/create/:id"  component={CreateReceipt}/>
           </Switch>
       </div>
     </Router>

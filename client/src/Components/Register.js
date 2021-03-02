@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {Form, Button, Col} from 'react-bootstrap'
 import Axios from 'axios'
-
+import * as ProductsAPI from '../utils/ProductsAPI'
 function Register() {
 const [newProduct, setNewProduct]=useState({});
 
@@ -9,14 +9,14 @@ const [newProduct, setNewProduct]=useState({});
 
 const handleClick=()=>{
   console.log(newProduct)
-
-  Axios.post(`${process.env.REACT_APP_SERVER_URL}/products/insert`,newProduct)
-  .then((res)=>{
-    console.log(res)
-  })
-  .catch((err)=>{
-    console.log(err)
-  })
+  ProductsAPI.postProduct(newProduct);
+  // Axios.post(`${process.env.REACT_APP_SERVER_URL}/products/insert`,newProduct)
+  // .then((res)=>{
+  //   console.log(res)
+  // })
+  // .catch((err)=>{
+  //   console.log(err)
+  // })
 }
 
 const handleNameChange=(event)=>{

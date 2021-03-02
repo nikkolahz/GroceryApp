@@ -1,16 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import {Button, Container} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
+import * as OrdersAPI from '../utils/OrdersAPI'
+import Axios from 'axios'
+
 function Receipts() {
-  const [receipt, setReceipt]=useState({
-    totalPrice: 0.0,
-    store:'',
-    products:[
-      {price: 25.0},
-      {price:26.3}
-    ],
-}
-  );
+  const history = useHistory()
+  const [receipt, setReceipt]=useState({});
+
+  const [orders,setOrders]=useState([]);
 
   const getTotal = ()=>{
     const currentProducts = receipt;
@@ -26,24 +24,40 @@ function Receipts() {
 }
 
   const handleCreateNewReceipt=()=>{
-    setReceipt(prevVal=>({
-      ...prevVal,
-      totalPrice:prevVal.totalPrice+1
-      }));
-      
+   OrdersAPI.postOrder({})
+  .then((results)=>{
+    console.log(results._id)
+    history.push(`/receipts/create/${results._id}`)
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+
+
       }
 
   useEffect(()=>{
-
-    }, [receipt])
+    OrdersAPI.getAllOrders()
+    .then(results=>{
+      setOrders(results)
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+      }, [])
 
   return (
     <Container>
-    <Link style={{color:'#252525'}} to='/receipts/create'>
-      <Button  style={{margin:'15px'}} variant='dark'>
+
+      <Button  onClick={handleCreateNewReceipt} style={{margin:'15px'}} variant='dark'>
       Create New Receipt
       </Button>
-      </Link>
+
+            {orders.map((val,key)=>{
+              return(<Link style={{color:'#252525'}} to={`/receipts/create/${val._id}`}>
+                <p key={key}>{val._id}</p>
+              </Link>)
+            })}
     </Container>
   )
 }

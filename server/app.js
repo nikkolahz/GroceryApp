@@ -2,6 +2,7 @@ const express =require('express')
 const mongoose = require('mongoose')
 const cors =require('cors');
 const productsRoute = require('./routes/products')
+const ordersRoute = require('./routes/orders')
 
 
 
@@ -15,6 +16,7 @@ mongoose.connect("mongodb://localhost:27017/Grocery",
 app.use(cors());
 app.use(express.json())
 app.use('/products', productsRoute)
+app.use('/orders',ordersRoute)
 
 
 //Routes

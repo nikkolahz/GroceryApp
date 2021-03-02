@@ -4,7 +4,8 @@ import Axios from 'axios'
 import * as Icon from 'react-bootstrap-icons'
 import * as ProductsAPI from '../utils/ProductsAPI'
 
-function CreateReceipt() {
+function CreateReceipt(props) {
+  const catchedId=props.match.params.id;
   const criteria=['','name','brand', 'category']
   const [searchQuery, setSearchQuery]=useState({params:{}});
   const [searchResults,setSearchResults]=useState([]);
@@ -49,6 +50,7 @@ const renderComponent=()=>{
   console.log(productToAdd)
   return(
     <div>
+      <h1>Receipt No: {catchedId}</h1>
       <Table striped bordered hover responsive='sm' size='sm'>
         <thead>
           <tr>

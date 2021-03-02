@@ -1,16 +1,16 @@
 import Axios from 'axios'
 
-const PRODUCTS_BASE_URL =`${process.env.REACT_APP_SERVER_URL}/products`
+export const PRODUCTS_BASE_URL =`${process.env.REACT_APP_SERVER_URL}/products`
 
 /**
  * getProductsByParam - fetch Products JSON data from DB
  *@param {{key:string, value:string}} params JSON key-value pair
  *
  */
-export const getProductsByParam=(params)=>{
-  const data = Axios.get(`${PRODUCTS_BASE_URL}/?${params.key}=${params.value}`)
+export async function getProductsByParam(params){
+  const data = await Axios.get(`${PRODUCTS_BASE_URL}/?${params.key}=${params.value}`)
     .then((response)=>{
-     return response.data;
+     console.log(response.data)
     })
     .catch((err)=>{
       console.log(err);
@@ -18,17 +18,43 @@ export const getProductsByParam=(params)=>{
     return data
   }
 
+  export async function getAllProducts(){
+    let results={}
+    await Axios.get(`${PRODUCTS_BASE_URL}/`)
+      .then((response)=>{
+       results=response.data
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+      return results
+    }
+
+
 /**
  *getProductsById - fetch Products JSON daa from DB
  *@param {id:ObjectID} id ObjectID from MongoDB
  */
-export const getProductsById=(id)=>{
-  const data= Axios.get(`${PRODUCTS_BASE_URL}/id=${id}`)
+export async function getProductsById(id){
+  let results={}
+  await Axios.get(`${PRODUCTS_BASE_URL}/id=${id}`)
     .then((response)=>{
-      return response.data;
+    results= response.data;
     })
     .catch((err)=>{
       console.log(err);
     })
-    return data;
+    return results;
+}
+
+export async function postProduct(product){
+  let results={}
+   await Axios.post(`${process.env.REACT_APP_SERVER_URL}/products/insert`,product)
+  .then((response)=>{
+    results=response.data
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+return results
 }

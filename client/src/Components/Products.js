@@ -3,18 +3,22 @@ import Axios from 'axios'
 import {Table, Container}from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import * as Icon from 'react-bootstrap-icons'
+import * as ProductsAPI from '../utils/ProductsAPI'
 function Products() {
 const [products, setProducts]=useState([]);
 
-useEffect(()=>{
- Axios.get(`${process.env.REACT_APP_SERVER_URL}/products/`)
- .then((response)=>{
-   setProducts(response.data);
 
- })
- .catch((err)=>{
-   console.log(err)
- })
+async function fetchAllProducts(){
+
+}
+
+
+useEffect(()=>{
+    ProductsAPI.getAllProducts()
+      .then((results)=>{
+        console.log(results)
+        setProducts(results);
+      })
 
 },[])
   return (

@@ -35,4 +35,10 @@ const ProductSchema = mongoose.Schema({
   ]
 })
 
-module.exports = mongoose.model('products', ProductSchema)
+ const getProductSchema=()=>{
+  return ProductSchema
+}
+
+ const ProductModel= mongoose.model('products', ProductSchema)
+
+module.exports={ProductSchema, ProductModel}

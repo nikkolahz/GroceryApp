@@ -9,6 +9,7 @@ function TopNavbar() {
             <Nav.Link href='/products'>Products</Nav.Link>
             <Nav.Link href='/receipts'>Receipts</Nav.Link>
             <Nav.Link href='/about'>About</Nav.Link>
+            <Nav.Link href='/fs'>File View</Nav.Link>
           </Nav>
       </Navbar>
   )
